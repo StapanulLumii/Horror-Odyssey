@@ -1,26 +1,24 @@
 import { useState } from "react";
 import { IntroScreen } from "./components/IntroScreen";
-import type { Character, GameState } from "./engine";
-import { createInitialState, startGame } from "./engine";
+import { GameView } from "./components/GameView";
+import type { Character, Choice, GameState } from "./engine";
+import { applyChoice, createInitialState, startGame } from "./engine";
+import { demoStory } from "./story/demo";
 import "./App.css";
-
-const PLACEHOLDER_STORY = {
-  startSceneId: "start",
-  nodes: {
-    start: {
-      type: "scene" as const,
-      id: "start",
-      text: "Aici va începe povestea...",
-      choices: [],
-    },
-  },
-};
 
 function App() {
   const [state, setState] = useState<GameState>(createInitialState);
 
   const handleStart = (character: Character) => {
-    setState((prev) => startGame(prev, character, PLACEHOLDER_STORY));
+    setState((prev) => startGame(prev, character, demoStory));
+  };
+
+  const handleChoose = (choice: Choice) => {
+    setState((prev) => applyChoice(prev, choice, demoStory));
+  };
+
+  const handleRestart = () => {
+    setState(createInitialState());
   };
 
   if (state.status === "intro") {
@@ -28,12 +26,12 @@ function App() {
   }
 
   return (
-    <main className="placeholder">
-      <p>
-        Salut, {state.character?.name}. Povestea va apărea aici în următoarea
-        versiune.
-      </p>
-    </main>
+    <GameView
+      state={state}
+      story={demoStory}
+      onChoose={handleChoose}
+      onRestart={handleRestart}
+    />
   );
 }
 
