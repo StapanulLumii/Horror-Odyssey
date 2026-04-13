@@ -1,5 +1,7 @@
+import { useState } from "react";
 import type { Choice, Scene, Stats } from "../engine";
 import { isChoiceEnabled, visibleChoices } from "../engine";
+import { TypewriterText } from "./TypewriterText";
 
 interface Props {
   scene: Scene;
@@ -9,17 +11,25 @@ interface Props {
 
 export function SceneView({ scene, stats, onChoose }: Props) {
   const choices = visibleChoices(scene, stats);
+  const [textDone, setTextDone] = useState(false);
 
   return (
-    <section className="scene-view">
+    <section className="scene-view" key={scene.id}>
       {scene.image && (
         <div
           className="scene-image"
           style={{ backgroundImage: `url(${scene.image})` }}
         />
       )}
-      <p className="scene-text">{scene.text}</p>
-      <ul className="scene-choices">
+      <TypewriterText
+        text={scene.text}
+        className="scene-text"
+        onDone={() => setTextDone(true)}
+      />
+      <ul
+        className="scene-choices"
+        data-visible={textDone ? "true" : "false"}
+      >
         {choices.map((choice) => {
           const enabled = isChoiceEnabled(choice, stats);
           return (
