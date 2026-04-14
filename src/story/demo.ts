@@ -8,6 +8,7 @@ export const demoStory: Story = {
     start: {
       type: "scene",
       id: "start",
+      mood: "rain",
       text: "Ploaia bate în geamul biroului tău. Un dosar nou tocmai a aterizat pe masă. Un caz vechi de crimă, redeschis. Ce faci?",
       choices: [
         {
@@ -27,6 +28,7 @@ export const demoStory: Story = {
     read_file: {
       type: "scene",
       id: "read_file",
+      mood: "candle",
       text: "Dosarul descrie o fetiță dispărută acum 20 de ani. Ultima fotografie: un dulap negru, o ușă întredeschisă.",
       choices: [
         {
@@ -39,6 +41,7 @@ export const demoStory: Story = {
     drink: {
       type: "scene",
       id: "drink",
+      mood: "fog",
       text: "Whiskey-ul arde. Nu rezolvă nimic. Dosarul te privește.",
       choices: [
         {
