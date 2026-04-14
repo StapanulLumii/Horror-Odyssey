@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Choice, Scene, Stats } from "../engine";
 import { isChoiceEnabled, visibleChoices } from "../engine";
 import { TypewriterText } from "./TypewriterText";
+import { MoodLayer } from "./MoodLayer";
 
 interface Props {
   scene: Scene;
@@ -15,6 +16,7 @@ export function SceneView({ scene, stats, onChoose }: Props) {
 
   return (
     <section className="scene-view" key={scene.id}>
+      <MoodLayer mood={scene.mood} />
       {scene.image && (
         <div
           className="scene-image"

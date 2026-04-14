@@ -1,10 +1,19 @@
-import type { Ending } from "../engine";
+import type { Ending, Mood } from "../engine";
+import { MoodLayer } from "./MoodLayer";
 
 interface Props {
   ending: Ending;
   characterName: string;
   onRestart: () => void;
 }
+
+const KIND_MOOD: Record<Ending["kind"], Mood> = {
+  death: "blood",
+  madness: "void",
+  good: "candle",
+  bad: "ravens",
+  secret: "fog",
+};
 
 const KIND_LABELS: Record<Ending["kind"], string> = {
   death: "Moarte",
@@ -15,8 +24,10 @@ const KIND_LABELS: Record<Ending["kind"], string> = {
 };
 
 export function EndingView({ ending, characterName, onRestart }: Props) {
+  const mood = ending.mood ?? KIND_MOOD[ending.kind];
   return (
     <section className={`ending-view ending-${ending.kind}`}>
+      <MoodLayer mood={mood} />
       {ending.image && (
         <div
           className="scene-image"
