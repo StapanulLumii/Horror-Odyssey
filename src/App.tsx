@@ -4,7 +4,7 @@ import { GameView } from "./components/GameView";
 import { AudioToggle } from "./components/AudioToggle";
 import type { Character, Choice, GameState, Mood } from "./engine";
 import { applyChoice, createInitialState, startGame } from "./engine";
-import { demoStory } from "./story/demo";
+import { mainStory } from "./story/main";
 import { useAudio } from "./audio/useAudio";
 import { audioEngine } from "./audio/AudioEngine";
 import "./App.css";
@@ -22,7 +22,7 @@ function App() {
 
   const currentMood = useMemo<Mood | undefined>(() => {
     if (!state.currentNodeId) return undefined;
-    const node = demoStory.nodes[state.currentNodeId];
+    const node = mainStory.nodes[state.currentNodeId];
     if (!node) return undefined;
     if (node.mood) return node.mood;
     if (node.type === "ending") return MOOD_FOR_KIND[node.kind];
@@ -36,13 +36,13 @@ function App() {
 
   const handleStart = (character: Character) => {
     void audioEngine.resume();
-    setState((prev) => startGame(prev, character, demoStory));
+    setState((prev) => startGame(prev, character, mainStory));
   };
 
   const handleChoose = (choice: Choice) => {
     audioEngine.playChoiceClick();
     setState((prev) => {
-      const next = applyChoice(prev, choice, demoStory);
+      const next = applyChoice(prev, choice, mainStory);
       if (next.status === "ended" && prev.status !== "ended") {
         audioEngine.playDeathSting();
       }
@@ -62,7 +62,7 @@ function App() {
       ) : (
         <GameView
           state={state}
-          story={demoStory}
+          story={mainStory}
           onChoose={handleChoose}
           onRestart={handleRestart}
         />
