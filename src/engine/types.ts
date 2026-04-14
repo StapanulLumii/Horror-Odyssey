@@ -51,10 +51,19 @@ export interface Choice {
   next: string;
 }
 
+export type Mood =
+  | "rain"
+  | "fog"
+  | "candle"
+  | "blood"
+  | "ravens"
+  | "void";
+
 export interface Scene {
   id: string;
   text: string;
   image?: string;
+  mood?: Mood;
   choices: Choice[];
 }
 
@@ -63,6 +72,7 @@ export interface Ending {
   kind: EndingKind;
   text: string;
   image?: string;
+  mood?: Mood;
 }
 
 export type StoryNode =
