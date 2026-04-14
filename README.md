@@ -1,73 +1,34 @@
-# React + TypeScript + Vite
+# Horror Odyssey
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Un joc de aventură text horror-detectiv, în limba română.
 
-Currently, two official plugins are available:
+## Joacă
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**→ [https://stapanullumii.github.io/Horror-Odyssey/](https://stapanullumii.github.io/Horror-Odyssey/)**
 
-## React Compiler
+## Despre
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Detectivul este chemat într-un sat izolat din Moldova, Bucovăț, pentru a rezolva un caz de dispariție vechi de douăzeci de ani. Alegerile tale determină deznodământul — 5 finaluri posibile.
 
-## Expanding the ESLint configuration
+### Mecanici
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Creare de personaj: nume, vârstă, gen, rasă, îmbrăcăminte
+- 4 statistici: **Sănătate**, **Sanitate**, **Percepție**, **Curaj**
+- Alegeri condiționate de statistici (unele opțiuni se deblochează la praguri de percepție/curaj)
+- Moarte automată la sănătate 0, nebunie la sanitate 0
+- Ambianță dinamică: efecte vizuale (ploaie, ceață, lumânare, sânge, corbi, gol) și audio sintetizat per atmosferă
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Rulare locală
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Stack
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+React · TypeScript · Vite · Web Audio API · Google Fonts (Creepster, Nosifer, Special Elite)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Deploy
+
+Publicat automat pe GitHub Pages la fiecare push pe `main` prin workflow-ul din `.github/workflows/deploy.yml`.
